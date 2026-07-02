@@ -2,76 +2,84 @@
 
 import Image from "next/image";
 import { motion } from "framer-motion";
-import { Phone, ShieldCheck, Sparkles } from "lucide-react";
+import { Phone, Star, ShieldCheck, Clock } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import { site } from "@/data/site";
 import { stockImages } from "@/data/images";
 
+const trustPills = [
+  { icon: ShieldCheck, label: "Licensed, Bonded & Insured" },
+  { icon: Clock, label: "Same-Day Quote Response" },
+];
+
 export function Hero() {
   return (
-    <section className="relative overflow-hidden bg-background-secondary">
+    <section className="relative isolate overflow-hidden">
+      {/* Full-bleed background */}
+      <Image
+        src={stockImages.receptionBright.url}
+        alt=""
+        fill
+        priority
+        // sizes="90vw"
+        className="object-cover object-center -z-20"
+      />
+      {/* Readability scrim */}
       {/* <div
-        className="absolute -top-32 -right-32 w-[28rem] h-[28rem] rounded-full bg-brand-yellow/20 blur-3xl"
+        className="absolute inset-0 -z-10 bg-gradient-to-r from-heading/85 via-heading/55 to-heading/10"
         aria-hidden="true"
-      /> */}
-      {/* <div
-        className="absolute -bottom-40 -left-20 w-[24rem] h-[24rem] rounded-full bg-accent-blue/10 blur-3xl"
+      />
+      <div
+        className="absolute inset-0 -z-10 bg-gradient-to-t from-heading/70 via-transparent to-transparent"
         aria-hidden="true"
       /> */}
 
-      <div className="container-default relative grid lg:grid-cols-12 gap-10 lg:gap-12 items-center py-14 md:py-20 lg:py-28">
+      <div className="container-default relative min-h-[88vh] md:min-h-[80vh] flex flex-col justify-center py-12 md:py-20">
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, ease: "easeOut" }}
-          className="lg:col-span-6"
+          transition={{ duration: 0.7, ease: "easeOut" }}
+          className="max-w-2xl"
         >
-          <span className="inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm font-semibold text-accent-blue mb-5 md:mb-6">
-            <Sparkles size={16} aria-hidden="true" />
-            Trusted Commercial Cleaning Partner — Missouri
+          <span className="inline-flex items-center gap-2 rounded-full bg-white/10 backdrop-blur px-4 py-2 text-sm font-semibold text-white ring-1 ring-white/20">
+            <span className="flex" aria-hidden="true">
+              {Array.from({ length: 5 }).map((_, i) => (
+                <Star key={i} size={14} className="fill-brand-yellow text-brand-yellow" />
+              ))}
+            </span>
+            Rated 5 stars by Missouri businesses
           </span>
-          <h1 className="text-[2.25rem] leading-[1.15] md:text-5xl md:leading-[1.1] font-bold text-heading">
-            Reliable Commercial Cleaning That Keeps Your Business Spotless
+
+          <h1 className="mt-6 text-[2.5rem] leading-[1.1] md:text-6xl md:leading-[1.05] font-bold bg-clip-text text-transparent bg-linear-to-r from-text-hover via-text-hover/80 to-text-hover/50">
+            Commercial Cleaning Your Business Can Actually Rely On
           </h1>
-          <p className="mt-5 md:mt-6 text-base md:text-xl text-body leading-relaxed max-w-md">
-            Consistent, professional cleaning programs for offices, medical
-            facilities, schools, and more — built around your schedule.
+
+          <p className="mt-6 text-lg md:text-xl text-white/80 leading-relaxed max-w-xl">
+            Consistent, accountable cleaning programs for offices, medical
+            facilities, and schools across Missouri — built around your schedule
+            and backed by documented quality checks.
           </p>
-          <div className="mt-7 md:mt-8 flex flex-col sm:flex-row gap-3 sm:gap-4">
+
+          <div className="mt-9 flex flex-col sm:flex-row gap-3 sm:gap-4">
             <Button href="/contact" size="lg" className="w-full sm:w-auto">
               Request a Free Quote
             </Button>
-            <Button href={site.phoneHref} variant="secondary" size="lg" className="w-full sm:w-auto">
-              <Phone size={18} aria-hidden="true" /> Call Now
+            <Button
+              href={site.phoneHref}
+              size="lg"
+              className="w-full sm:w-auto bg-white/10 text-white ring-1 ring-white/25 backdrop-blur hover:bg-white/20"
+            >
+              <Phone size={18} aria-hidden="true" /> {site.phone}
             </Button>
           </div>
 
-          <div className="mt-8 md:mt-10 flex items-center gap-3 text-sm font-medium text-body">
-            <ShieldCheck className="text-accent-blue shrink-0" size={20} aria-hidden="true" />
-            Insured, bonded, and trusted by 500+ Missouri businesses
-          </div>
-        </motion.div>
-
-        <motion.div
-          initial={{ opacity: 0, scale: 0.96 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.6, ease: "easeOut", delay: 0.15 }}
-          className="lg:col-span-6 relative"
-        >
-          <div className="relative rounded-[20px] md:rounded-[28px] overflow-hidden aspect-[4/3] bg-white shadow-xl ring-1 ring-black/5">
-            <Image
-              src={stockImages.heroOffice.url}
-              alt={stockImages.heroOffice.alt}
-              fill
-              priority
-              sizes="(min-width: 1024px) 50vw, 100vw"
-              className="object-cover"
-            />
-          </div>
-
-          <div className="absolute -bottom-5 -left-5 md:-bottom-6 md:-left-6 bg-white rounded-2xl shadow-lg px-5 py-3 md:px-6 md:py-4">
-            <p className="text-xl md:text-2xl font-bold text-heading leading-none">10+</p>
-            <p className="text-xs text-text-secondary mt-1">Years Serving Missouri</p>
+          <div className="mt-10 flex flex-wrap gap-x-6 gap-y-3">
+            {trustPills.map((p) => (
+              <div key={p.label} className="flex items-center gap-2 text-sm font-medium text-white/90">
+                <p.icon className="text-brand-yellow shrink-0" size={18} aria-hidden="true" />
+                {p.label}
+              </div>
+            ))}
           </div>
         </motion.div>
       </div>

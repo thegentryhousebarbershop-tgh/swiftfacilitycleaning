@@ -12,8 +12,8 @@ export function Footer() {
           <ul className="space-y-2 text-sm text-gray-300">
             <li><Link href="/about">About</Link></li>
             <li><Link href="/contact">Contact</Link></li>
-            <li><Link href="/reviews">Reviews</Link></li>
-            <li><Link href="/case-studies">Case Studies</Link></li>
+            {/* <li><Link href="/reviews">Reviews</Link></li> */}
+            {/* <li><Link href="/case-studies">Case Studies</Link></li> */}
           </ul>
         </div>
         <div>
@@ -29,11 +29,11 @@ export function Footer() {
           <ul className="space-y-2 text-sm text-gray-300">
             {featuredCities.map((c) => (
               <li key={c.slug}>
-                <Link href={`/locations/missouri/${c.slug}`}>{c.name}</Link>
+                <Link href={`/#service-areas`}>{c.name}</Link>
               </li>
             ))}
           </ul>
-          <Link href="/locations/missouri" className="inline-block mt-3 text-sm text-brand-yellow font-semibold">
+          <Link href="/#service-areas" className="inline-block mt-3 text-sm text-brand-yellow font-semibold">
             View All Locations
           </Link>
         </div>

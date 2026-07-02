@@ -2,6 +2,7 @@ import { CalendarClock, MessageSquareText, Settings2, ClipboardCheck } from "luc
 import { SectionHeader } from "@/components/ui/SectionHeader";
 import { Reveal } from "@/components/ui/Reveal";
 import { Button } from "@/components/ui/Button";
+import { cn } from "@/lib/utils";
 
 const steps = [
   {
@@ -34,9 +35,9 @@ const steps = [
   },
 ];
 
-export function ProcessSteps() {
+export function ProcessSteps({ background }: { background?: string }) {
   return (
-    <section className="section-y">
+    <section className={cn("section-y", background)}>
       <div className="container-default">
         <SectionHeader eyebrow="How It Works" title="Getting Started Is Simple" />
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-8">

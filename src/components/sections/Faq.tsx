@@ -32,7 +32,7 @@ export function Faq() {
   const [open, setOpen] = useState<number | null>(0);
 
   return (
-    <section className="section-y bg-background-secondary">
+    <section className="section-y">
       <div className="container-reading">
         <SectionHeader eyebrow="FAQ" title="Frequently Asked Questions" />
         <div className="space-y-3">
@@ -42,8 +42,8 @@ export function Faq() {
               <div
                 key={item.q}
                 className={cn(
-                  "rounded-2xl bg-white border transition-colors",
-                  isOpen ? "border-accent-blue/30 shadow-sm" : "border-border-light"
+                  "rounded-2xl bg-white border shadow-sm transition-colors",
+                  isOpen ? "border-accent-blue/40" : "border-border"
                 )}
               >
                 <button

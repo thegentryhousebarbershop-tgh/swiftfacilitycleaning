@@ -90,4 +90,38 @@ export const stockImages = {
     photographer: "SumUp",
     source: "https://unsplash.com/photos/ea_703_mEQg",
   },
+
+  // Bright, premium set (homepage feature sections)
+  receptionBright: {
+    // url: "https://images.unsplash.com/photo-1746173098013-6ae3c31e073f?fm=jpg&q=80&w=1920&auto=format&fit=crop",
+    url: "https://images.unsplash.com/photo-1497366754035-f200968a6e72?q=80&w=1469&auto=format&fit=crop",
+    alt: "Bright, modern office reception area with natural light",
+    photographer: "ZEIN ZAIN",
+    source: "https://unsplash.com/photos/-lxj69ckDCA",
+  },
+  teamBright: {
+    // url: "https://images.unsplash.com/photo-1758873268663-5a362616b5a7?fm=jpg&q=80&w=1200&auto=format&fit=crop",
+    url: "https://plus.unsplash.com/premium_photo-1683141112334-d7d404f6e716?q=80&w=1470&auto=format&fit=crop",
+    alt: "Four diverse colleagues standing together in a bright modern office",
+    photographer: "Vitaly Gariev",
+    source: "https://unsplash.com/photos/bIp_G2qoP3Q",
+  },
+  openOfficeBright: {
+    url: "https://images.unsplash.com/photo-1718220216044-006f43e3a9b1?fm=jpg&q=80&w=1200&auto=format&fit=crop",
+    alt: "Bright open-plan office with clean desks and large windows",
+    photographer: "Bernd Dittrich",
+    source: "https://unsplash.com/photos/pYlBAu3de0w",
+  },
+  lobbyBright: {
+    url: "https://images.unsplash.com/photo-1758448093806-88b2089068ab?fm=jpg&q=80&w=1600&auto=format&fit=crop",
+    alt: "Bright modern lobby with reception desk and seating area",
+    photographer: "Aalo Lens",
+    source: "https://unsplash.com/photos/Ypv0MH4izf8",
+  },
+  lobbyMarbleBright: {
+    url: "https://images.unsplash.com/photo-1758448500688-3ababa93fd67?fm=jpg&q=80&w=1200&auto=format&fit=crop",
+    alt: "Bright modern lobby with marble reception desk and plants",
+    photographer: "Aalo Lens",
+    source: "https://unsplash.com/photos/pt0nGH-NvoA",
+  },
 } satisfies Record<string, StockImage>;

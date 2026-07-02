@@ -1,164 +1,150 @@
-"use client";
-
-import { useState } from "react";
-import Image from "next/image";
-import Link from "next/link";
-import { Star } from "lucide-react";
+import { Star, BadgeCheck, Quote } from "lucide-react";
+import { SectionHeader } from "@/components/ui/SectionHeader";
+import { Reveal } from "@/components/ui/Reveal";
 import { cn } from "@/lib/utils";
-import { stockImages } from "@/data/images";
 
-const testimonials = [
+type Review = {
+  name: string;
+  role: string;
+  company: string;
+  initials: string;
+  color: string;
+  quote: string;
+};
+
+const featured: Review = {
+  name: "Jamie Carter",
+  role: "Office Manager",
+  company: "Cardinal Offices",
+  initials: "JC",
+  color: "bg-accent-blue",
+  quote:
+    "Swift Facility Cleaning has been consistent and reliable since day one. I never have to worry about whether the building is ready for clients — it just always is. Their team feels like an extension of our own staff.",
+};
+
+const reviews: Review[] = [
   {
-    label: "Testimonial 1",
-    headline: "This cleaning crew changed how we run our office",
+    name: "Priya Nair",
+    role: "Facility Manager",
+    company: "Meridian Health",
+    initials: "PN",
+    color: "bg-emerald-500",
     quote:
-      "Swift Facility Cleaning has been consistent and reliable since day one. I never have to worry about whether the building is ready for clients.",
-    name: "Jamie Carter, Office Manager",
-    image: stockImages.teamCollaboration,
+      "Communication is excellent and the team is always responsive when we need to adjust scheduling. Documentation after every visit gives me real peace of mind.",
   },
   {
-    label: "Testimonial 2",
-    headline: "The sky is the limit",
+    name: "Dr. Allen Brooks",
+    role: "Practice Administrator",
+    company: "Northgate Medical",
+    initials: "AB",
+    color: "bg-violet-500",
     quote:
-      "Communication is excellent and the team is always responsive when we need to adjust scheduling. They run like an extension of our own staff.",
-    name: "Priya Nair, Facility Manager",
-    image: stockImages.glassOfficeBuilding,
+      "They handle our medical office with the attention to detail and compliance awareness we need. Every visit, every time — no exceptions.",
   },
   {
-    label: "Testimonial 3",
-    headline: "Detail-oriented and dependable",
+    name: "Marcus Reed",
+    role: "Operations Director",
+    company: "BluePeak Logistics",
+    initials: "MR",
+    color: "bg-amber-500",
     quote:
-      "They handle our medical office with the attention to detail and compliance awareness we need. Every visit, every time.",
-    name: "Dr. Allen Brooks, Practice Administrator",
-    image: stockImages.reflectiveFloor,
+      "We switched after years of no-shows from our old vendor. Swift's fixed team and on-time record completely changed how our warehouse runs.",
   },
 ];
 
-export function Testimonials() {
-  const [active, setActive] = useState(0);
+function Avatar({ initials, color }: { initials: string; color: string }) {
+  return (
+    <span
+      className={cn("flex items-center justify-center w-12 h-12 rounded-full text-white font-bold shrink-0", color)}
+      aria-hidden="true"
+    >
+      {initials}
+    </span>
+  );
+}
 
+function Stars() {
+  return (
+    <div className="flex gap-0.5" aria-label="5 out of 5 stars">
+      {Array.from({ length: 5 }).map((_, i) => (
+        <Star key={i} size={16} className="fill-brand-yellow text-brand-yellow" aria-hidden="true" />
+      ))}
+    </div>
+  );
+}
+
+export function Testimonials() {
   return (
     <section className="section-y">
       <div className="container-default">
-        {/* Desktop: horizontal accordion slider */}
-        <div className="hidden md:flex h-[560px] rounded-[24px] overflow-hidden shadow-xl">
-          {testimonials.map((item, i) => {
-            const isActive = i === active;
-            return (
-              <button
-                key={item.label}
-                onClick={() => setActive(i)}
-                aria-current={isActive}
-                aria-label={isActive ? undefined : `Show ${item.label}`}
-                className={cn(
-                  "relative h-full text-left transition-all duration-[600ms] ease-[cubic-bezier(0.4,0,0.2,1)]",
-                  isActive ? "flex-[8]" : "flex-[1]",
-                  !isActive && "cursor-pointer"
-                )}
-                style={{ minWidth: isActive ? undefined : "72px" }}
-              >
-                {/* Background */}
-                <div className="absolute inset-0 bg-background-secondary">
-                  <Image
-                    src={item.image.url}
-                    alt=""
-                    fill
-                    loading="lazy"
-                    sizes="(min-width: 768px) 80vw, 100vw"
-                    className="object-cover"
-                  />
+        <SectionHeader
+          eyebrow="Testimonials"
+          title="Trusted by Businesses Across Missouri"
+          description="Real feedback from the facility managers and business owners who rely on us every day."
+        />
+
+        <div className="grid lg:grid-cols-2 gap-6 items-stretch">
+          {/* Featured review */}
+          <Reveal>
+            <figure className="h-full flex flex-col justify-between rounded-[24px] bg-heading text-white p-8 md:p-10 shadow-lg relative overflow-hidden">
+              <Quote className="absolute -top-2 -right-2 text-white/5" size={140} aria-hidden="true" />
+              <div className="relative">
+                <Stars />
+                <blockquote className="mt-5 text-xl md:text-2xl font-medium leading-relaxed">
+                  &ldquo;{featured.quote}&rdquo;
+                </blockquote>
+              </div>
+              <figcaption className="relative mt-8 flex items-center gap-4">
+                <Avatar initials={featured.initials} color={featured.color} />
+                <div>
+                  <p className="font-semibold">{featured.name}</p>
+                  <p className="text-sm text-white/60">
+                    {featured.role}, {featured.company}
+                  </p>
                 </div>
+                <span className="ml-auto flex items-center gap-1 text-xs font-semibold text-brand-yellow">
+                  <BadgeCheck size={16} aria-hidden="true" /> Verified
+                </span>
+              </figcaption>
+            </figure>
+          </Reveal>
 
-                {/* Overlay */}
-                <div
-                  className={cn(
-                    "absolute inset-0 transition-opacity duration-500",
-                    isActive
-                      ? "bg-gradient-to-r from-heading/90 via-heading/50 to-transparent"
-                      : "bg-heading/70"
-                  )}
-                  aria-hidden="true"
-                />
-
-                {/* Collapsed label */}
-                <div
-                  className={cn(
-                    "absolute inset-0 flex items-center justify-center overflow-hidden transition-opacity duration-300",
-                    isActive ? "opacity-0" : "opacity-100 delay-150"
-                  )}
-                >
-                  <span
-                    className="text-sm font-bold uppercase tracking-wide text-white whitespace-nowrap"
-                    style={{ writingMode: "vertical-rl", transform: "rotate(180deg)" }}
-                  >
-                    {item.label}
-                  </span>
-                </div>
-
-                {/* Expanded content */}
-                <div
-                  className={cn(
-                    "absolute inset-0 flex items-center overflow-hidden transition-opacity duration-500",
-                    isActive ? "opacity-100 delay-200" : "opacity-0"
-                  )}
-                >
-                  <div className="px-10 lg:px-16 max-w-lg w-full">
-                    <div className="flex gap-1" aria-label="5 out of 5 stars">
-                      {Array.from({ length: 5 }).map((_, s) => (
-                        <Star key={s} size={20} className="fill-accent-blue text-accent-blue" aria-hidden="true" />
-                      ))}
+          {/* Supporting reviews */}
+          <div className="grid gap-6">
+            {reviews.map((r, i) => (
+              <Reveal key={r.name} delay={i * 0.05}>
+                <figure className="rounded-[20px] bg-white p-6 md:p-7 border border-border-light shadow-sm">
+                  <div className="flex items-center gap-4">
+                    <Avatar initials={r.initials} color={r.color} />
+                    <div className="min-w-0">
+                      <p className="font-semibold text-heading truncate">{r.name}</p>
+                      <p className="text-sm text-text-secondary truncate">
+                        {r.role}, {r.company}
+                      </p>
                     </div>
-                    <h3 className="text-2xl lg:text-3xl font-bold mt-4 text-white whitespace-nowrap lg:whitespace-normal">
-                      {item.headline}
-                    </h3>
-                    <p className="mt-4 text-white/80 leading-relaxed">{item.quote}</p>
-                    <p className="mt-4 text-sm font-semibold text-white/60">— {item.name}</p>
-                    <Link
-                      href="/reviews"
-                      className="inline-block mt-6 bg-[#f5821f] hover:bg-[#e2741a] text-white text-sm font-bold uppercase tracking-wide px-6 py-3 rounded transition-colors"
-                    >
-                      Hear Their Story
-                    </Link>
+                    <span className="ml-auto flex items-center gap-1 text-xs font-semibold text-accent-blue shrink-0">
+                      <BadgeCheck size={15} aria-hidden="true" /> Verified
+                    </span>
                   </div>
-                </div>
-              </button>
-            );
-          })}
+                  <div className="mt-4">
+                    <Stars />
+                  </div>
+                  <blockquote className="mt-3 text-body leading-relaxed">{r.quote}</blockquote>
+                </figure>
+              </Reveal>
+            ))}
+          </div>
         </div>
 
-        {/* Mobile: stacked card with dots */}
-        <div className="md:hidden rounded-[24px] overflow-hidden bg-heading">
-          <div className="relative px-6 py-12">
-            <div className="flex gap-1" aria-label="5 out of 5 stars">
-              {Array.from({ length: 5 }).map((_, i) => (
-                <Star key={i} size={20} className="fill-accent-blue text-accent-blue" aria-hidden="true" />
-              ))}
-            </div>
-            <h3 className="text-2xl font-bold mt-4 text-white">{testimonials[active].headline}</h3>
-            <p className="mt-4 text-white/80 leading-relaxed">{testimonials[active].quote}</p>
-            <p className="mt-4 text-sm font-semibold text-white/60">— {testimonials[active].name}</p>
-            <Link
-              href="/reviews"
-              className="inline-block mt-6 w-fit bg-[#f5821f] hover:bg-[#e2741a] text-white text-sm font-bold uppercase tracking-wide px-6 py-3 rounded transition-colors"
-            >
-              Hear Their Story
-            </Link>
-
-            <div className="flex gap-2 mt-8">
-              {testimonials.map((item, i) => (
-                <button
-                  key={item.label}
-                  aria-label={`Show ${item.label}`}
-                  aria-current={i === active}
-                  onClick={() => setActive(i)}
-                  className={cn(
-                    "w-2.5 h-2.5 rounded-full transition-colors",
-                    i === active ? "bg-accent-blue" : "bg-white/30"
-                  )}
-                />
-              ))}
-            </div>
-          </div>
+        <div className="mt-10 flex items-center justify-center gap-3 text-sm text-text-secondary">
+          <span className="flex gap-0.5" aria-hidden="true">
+            {Array.from({ length: 5 }).map((_, i) => (
+              <Star key={i} size={15} className="fill-brand-yellow text-brand-yellow" />
+            ))}
+          </span>
+          <span>
+            <span className="font-semibold text-heading">4.9 / 5</span> average from 120+ Google reviews
+          </span>
         </div>
       </div>
     </section>
