@@ -12,7 +12,7 @@ export function StickyMobileCta() {
         <Phone size={18} aria-hidden="true" />
         Call Now
       </a> */}
-      <Button href="/contact" size="lg" className="flex-1">
+      <Button href="/contact" size="sm" className="flex-1">
         Request a Free Quote
       </Button>
     </div>
