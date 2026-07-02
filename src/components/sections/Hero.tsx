@@ -41,7 +41,7 @@ export function Hero() {
           transition={{ duration: 0.7, ease: "easeOut" }}
           className="max-w-2xl"
         >
-          <span className="inline-flex items-center gap-2 rounded-full bg-white/10 backdrop-blur px-4 py-2 text-sm font-semibold text-white ring-1 ring-white/20">
+          <span className="inline-flex items-center gap-2 rounded-full bg-white/10 backdrop-blur px-4 py-2 text-xs sm:text-sm font-semibold text-white ring-1 ring-white/20">
             <span className="flex" aria-hidden="true">
               {Array.from({ length: 5 }).map((_, i) => (
                 <Star key={i} size={14} className="fill-brand-yellow text-brand-yellow" />

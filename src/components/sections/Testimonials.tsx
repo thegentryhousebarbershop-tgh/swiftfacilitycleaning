@@ -55,7 +55,10 @@ const reviews: Review[] = [
 function Avatar({ initials, color }: { initials: string; color: string }) {
   return (
     <span
-      className={cn("flex items-center justify-center w-12 h-12 rounded-full text-white font-bold shrink-0", color)}
+      className={cn(
+        "flex items-center justify-center w-10 h-10 md:w-12 md:h-12 rounded-full text-white text-sm md:text-base font-bold shrink-0",
+        color
+      )}
       aria-hidden="true"
     >
       {initials}
@@ -63,11 +66,11 @@ function Avatar({ initials, color }: { initials: string; color: string }) {
   );
 }
 
-function Stars() {
+function Stars({ size = 16 }: { size?: number }) {
   return (
     <div className="flex gap-0.5" aria-label="5 out of 5 stars">
       {Array.from({ length: 5 }).map((_, i) => (
-        <Star key={i} size={16} className="fill-brand-yellow text-brand-yellow" aria-hidden="true" />
+        <Star key={i} size={size} className="fill-brand-yellow text-brand-yellow shrink-0" aria-hidden="true" />
       ))}
     </div>
   );
@@ -75,7 +78,7 @@ function Stars() {
 
 export function Testimonials() {
   return (
-    <section className="section-y">
+    <section className="section-y overflow-x-hidden">
       <div className="container-default">
         <SectionHeader
           eyebrow="Testimonials"
@@ -83,26 +86,31 @@ export function Testimonials() {
           description="Real feedback from the facility managers and business owners who rely on us every day."
         />
 
-        <div className="grid lg:grid-cols-2 gap-6 items-stretch">
+        <div className="grid lg:grid-cols-2 gap-5 md:gap-6 items-stretch">
           {/* Featured review */}
           <Reveal>
-            <figure className="h-full flex flex-col justify-between rounded-[24px] bg-heading text-white p-8 md:p-10 shadow-lg relative overflow-hidden">
-              <Quote className="absolute -top-2 -right-2 text-white/5" size={140} aria-hidden="true" />
+            <figure className="h-full flex flex-col justify-between rounded-[20px] md:rounded-[24px] bg-heading text-white p-6 sm:p-8 md:p-10 shadow-lg relative overflow-hidden">
+              <Quote
+                className="absolute -top-2 -right-2 text-white/5 w-24 h-24 md:w-36 md:h-36"
+                aria-hidden="true"
+              />
               <div className="relative">
-                <Stars />
-                <blockquote className="mt-5 text-xl md:text-2xl font-medium leading-relaxed">
+                <Stars size={15} />
+                <blockquote className="mt-4 md:mt-5 text-lg sm:text-xl md:text-2xl font-medium leading-relaxed">
                   &ldquo;{featured.quote}&rdquo;
                 </blockquote>
               </div>
-              <figcaption className="relative mt-8 flex items-center gap-4">
-                <Avatar initials={featured.initials} color={featured.color} />
-                <div>
-                  <p className="font-semibold">{featured.name}</p>
-                  <p className="text-sm text-white/60">
-                    {featured.role}, {featured.company}
-                  </p>
+              <figcaption className="relative mt-6 md:mt-8 flex flex-wrap items-center gap-x-4 gap-y-2">
+                <div className="flex items-center gap-3 min-w-0">
+                  <Avatar initials={featured.initials} color={featured.color} />
+                  <div className="min-w-0">
+                    <p className="font-semibold truncate">{featured.name}</p>
+                    <p className="text-sm text-white/60 truncate">
+                      {featured.role}, {featured.company}
+                    </p>
+                  </div>
                 </div>
-                <span className="ml-auto flex items-center gap-1 text-xs font-semibold text-brand-yellow">
+                <span className="ml-auto flex items-center gap-1 text-xs font-semibold text-brand-yellow shrink-0">
                   <BadgeCheck size={16} aria-hidden="true" /> Verified
                 </span>
               </figcaption>
@@ -110,23 +118,25 @@ export function Testimonials() {
           </Reveal>
 
           {/* Supporting reviews */}
-          <div className="grid gap-6">
+          <div className="grid gap-5 md:gap-6">
             {reviews.map((r, i) => (
               <Reveal key={r.name} delay={i * 0.05}>
-                <figure className="rounded-[20px] bg-white p-6 md:p-7 border border-border-light shadow-sm">
-                  <div className="flex items-center gap-4">
-                    <Avatar initials={r.initials} color={r.color} />
-                    <div className="min-w-0">
-                      <p className="font-semibold text-heading truncate">{r.name}</p>
-                      <p className="text-sm text-text-secondary truncate">
-                        {r.role}, {r.company}
-                      </p>
+                <figure className="rounded-[20px] bg-white p-5 sm:p-6 md:p-7 border border-border-light shadow-sm">
+                  <div className="flex flex-wrap items-center gap-x-3 gap-y-2">
+                    <div className="flex items-center gap-3 min-w-0">
+                      <Avatar initials={r.initials} color={r.color} />
+                      <div className="min-w-0">
+                        <p className="font-semibold text-heading truncate">{r.name}</p>
+                        <p className="text-sm text-text-secondary truncate">
+                          {r.role}, {r.company}
+                        </p>
+                      </div>
                     </div>
                     <span className="ml-auto flex items-center gap-1 text-xs font-semibold text-accent-blue shrink-0">
                       <BadgeCheck size={15} aria-hidden="true" /> Verified
                     </span>
                   </div>
-                  <div className="mt-4">
+                  <div className="mt-3 md:mt-4">
                     <Stars />
                   </div>
                   <blockquote className="mt-3 text-body leading-relaxed">{r.quote}</blockquote>
@@ -136,7 +146,7 @@ export function Testimonials() {
           </div>
         </div>
 
-        <div className="mt-10 flex items-center justify-center gap-3 text-sm text-text-secondary">
+        <div className="mt-8 md:mt-10 flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-3 text-sm text-text-secondary text-center">
           <span className="flex gap-0.5" aria-hidden="true">
             {Array.from({ length: 5 }).map((_, i) => (
               <Star key={i} size={15} className="fill-brand-yellow text-brand-yellow" />
